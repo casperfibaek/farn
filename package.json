@@ -1,15 +1,19 @@
 {
   "name": "farn",
   "version": "0.0.1",
-  "description": "Purpose:\r The purpose of this library is to allow vector based\r geospatial analysis in node using cartesian coordinates.",
-  "main": "init.js",
+  "main": "index.js",
   "author": "Casper Fibæk",
   "license": "MIT",
+  "scripts": {
+    "test": "node test.js",
+    "bench": "node bench.js"
+  },
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "eslint": "^4.2.0",
     "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "tape": "^4.7.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
