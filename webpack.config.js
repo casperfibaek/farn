@@ -4,7 +4,7 @@ module.exports = {
   entry: './lib/farn.js',
   output: {
     filename: 'farn.js',
-    path: path.resolve(__dirname, 'out/'),
+    path: path.resolve(__dirname, 'dist/'),
   },
   module: {
     rules: [

@@ -1,6 +1,6 @@
 const test = require('tape').test; // eslint-disable-line
 const geom = require('./geom');
-const farn = require('../farn');
+const farn = require('../lib/farn');
 
 test('2D intersection: Parallel', (t) => {
   const actual = farn.intersect(geom.line1, geom.line5);

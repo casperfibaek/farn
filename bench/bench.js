@@ -1,6 +1,6 @@
 const Benchmark = require('benchmark'); // eslint-disable-line
 const geom = require('../tests/geom');
-const farn = require('../farn');
+const farn = require('../lib/farn');
 
 const suite = new Benchmark.Suite();
 

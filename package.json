@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode=production --devtool source-map",
-    "test": "node ./lib/tests",
-    "bench": "node ./lib/bench/bench.js",
+    "test": "node ./tests/tests.js",
+    "bench": "node ./bench/bench.js",
     "doc": "./node_modules/.bin/jsdoc ./lib/core/base.js -d ./documentation/"
   },
   "devDependencies": {
