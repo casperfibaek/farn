@@ -5,14 +5,17 @@
   "author": "Casper Fibæk",
   "license": "MIT",
   "scripts": {
-    "test": "node test.js",
-    "bench": "node bench.js"
+    "test": "node ./lib/tests",
+    "bench": "node ./lib/bench/bench.js",
+    "doc": "./node_modules/.bin/jsdoc ./lib/core/base.js -d ./documentation/"
   },
   "devDependencies": {
-    "eslint": "^4.2.0",
-    "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.7.0",
-    "tape": "^4.7.0"
+    "benchmark": "^2.1.4",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-plugin-import": "^2.14.0",
+    "jsdoc": "^3.5.5",
+    "tape": "^4.9.1"
   },
   "dependencies": {}
 }
