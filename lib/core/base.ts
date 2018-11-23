@@ -7,16 +7,16 @@
  * @example
  * const point1 = [0, 0];
  * const point2 = [2, 3];
- * console.log(distanceTo(point1, point2));
- * // output: 3.7416573867739413
+ * console.log(distance(point1, point2));
+ * // output: 3.605551275463989
  */
 export function distance(p1:Point, p2:Point):f32 {
   return Math.sqrt(((p2[0] - p1[0]) ** 2) + ((p2[1] - p1[1]) ** 2));
 }
 
 /**
- * Finds the angle between two points. 0-360 system increasing clockwise with north being 0.
- * Returns zero in the case of identical points.
+ * Finds the angle between two points.
+ * Starting at positiv x axis going counter clockwise. (radians).
  * @name angle
  * @param {Array<number>} p1 An array containing x and y coordinates. Such as: [0, 0]
  * @param {Array<number>} p2 An array containing x and y coordinates. Such as: [2, 2]
@@ -28,13 +28,7 @@ export function distance(p1:Point, p2:Point):f32 {
  * // output: 45 // now radians
  */
 export function angle(p1:Point, p2:Point): f32 {
-  // If the two points are identical
-  if (p1[0] === p2[0] && p1[1] === p2[1]) { return 0; }
-
-  let theta:f32 = Math.atan2(p1[0] - p2[0], p2[1] - p1[1]);
-  if (theta < 0) { theta += Math.PI * 2;}
-
-  return theta;
+  return Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);
 }
 
 /**
@@ -52,6 +46,7 @@ export function angle(p1:Point, p2:Point): f32 {
  */
 export function pointFromTwoPoints(p1:Point, p2:Point, d:f32 = 0):Point {
   if (d === 0) { return p1; }
+  if (p1[0] === p2[0] && p1[1] === p2[1]) { return p1;}
 
   const dx:f32 = p2[0] - p1[0];
   const dy:f32 = p2[1] - p1[1];

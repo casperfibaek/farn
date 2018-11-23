@@ -7,10 +7,15 @@ module.exports = {
    line5: [[0, 2, 0], [2, 4, 0]],
    line6: [[2, 2, 0], [4, 4, 0]],
   
-   point1: [[0, 0], [2, 2]],
-   point2: [[1, 2], [3, 1]],
-   point3: [[2, 2, 0], [2, 2, 0]],
-   point4: [[1, 2, 0], [3, 1, 0]],
+   point1: [1, 1],   // north east
+   point2: [1, 0],   // east
+   point3: [1, -1],  // south east
+   point4: [0, 1],   // north
+   point5: [0, 0],   // center
+   point6: [0, -1],  // south
+   point7: [-1, 1],  // north west
+   point8: [-1, 0],  // west
+   point9: [-1, -1], // south west
   
    polygon1: [[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]],
    polygon2: [[0, 0], [0, 1], [1, 1], [1, 0], [0, 0]],
