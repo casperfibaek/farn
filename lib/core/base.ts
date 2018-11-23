@@ -1,3 +1,5 @@
+// TODO: pointFromOriginRotation, FIX
+
 /**
  * Finds the distance between two points.
  * @name distance
@@ -121,19 +123,13 @@ export function pointFromAngle(p:Point, a:f32, d:f32 = 0):Point {
  * console.log(pointRotation(origin, point, angle));
  * // output: [2, 0]
  */
-export function pointFromOriginRotation(o:Point, p:Point, a:f32):Point {
+export function pointFromOriginRotation(p:Point, o:Point = [0, 0], a:f32):Point {
   const cos:f32 = Math.cos(a);
   const sin:f32 = Math.sin(a);
-
-  const nx:f32 = (
-      (cos * (p[0] - o[0])) +
-      (sin * (p[1] - o[1]))
-    ) + o[0];
-
-  const ny = (
-      (cos * (p[1] - p[1])) -
-      (sin * (p[0] - p[0]))
-    ) + o[1];
+  const dx:f32 = p[0] - o[0];
+  const dy:f32 = p[1] - o[1];
+  const nx:f32 = (cos * dx) + (sin * dy) + o[0];
+  const ny:f32 = (cos * dy) - (sin * dx) + o[1];
 
   return [nx, ny];
 }
