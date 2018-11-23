@@ -1,6 +1,6 @@
 /* eslint-env node, es6, browser */
+import * as base from './core/base';
 
-const base = require('./core/base');
 // const checks = require('./core/checks');
 // const circles = require('./core/circles');
 // const lineStrings = require('./linestring/lineStrings');
@@ -17,7 +17,8 @@ const farn = {
 };
 
 if (window) { window.farn = farn; }
-module.exports = farn;
+
+export default farn;
 
 /*
   TODO:
