@@ -4,6 +4,4 @@ type LineString = [Point, Point, ...Point[]];
 type Polygon = [Point, Point, ...Point[]];
 type BoundingBox = [f32, f32, f32, f32];
 
-declare var window: {
-    farn: {},
-};
+declare var window: { farn: object };

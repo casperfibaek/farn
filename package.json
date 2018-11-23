@@ -5,8 +5,8 @@
   "author": "Casper Fibæk",
   "license": "MIT",
   "scripts": {
-    "tsc": "tsc ./lib/index.ts",
-    "watch": "tsc ./lib/index.ts -w",
+    "tsc": "tsc",
+    "watch": "tsc -w",
     "test": "node ./tests/tests.js",
     "doc": "./node_modules/.bin/jsdoc ./lib/core/base.js -d ./documentation/"
   },
