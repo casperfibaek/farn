@@ -7,11 +7,14 @@
   "scripts": {
     "tsc": "tsc",
     "watch": "tsc -w",
+    "build": "rollup -c",
     "test": "node ./tests/tests.js",
     "doc": "./node_modules/.bin/jsdoc ./lib/core/base.js -d ./documentation/"
   },
   "devDependencies": {
     "jsdoc": "^3.5.5",
+    "rollup": "^0.67.3",
+    "rollup-plugin-babel-minify": "^6.2.0",
     "tape": "^4.9.1",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.1",

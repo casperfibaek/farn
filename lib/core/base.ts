@@ -1,56 +1,4 @@
 /**
- * Find the intersection point between two lines located on the lines.
- * @name intersect
- * @param {Array<number>} l1 A nested array containing x and y coordinates. [[0, 0], [2, 2]]
- * @param {Array<number>} l2 A nested array containing x and y coordinates. [[1, 2], [3, 1]]
- * @returns {(Array<number>|Boolean)} An array containing the intersection.
- * False if no intersection.
- * @example
- * const lineSegment1 = [[0, 0, 0], [2, 2, 0]];
- * const lineSegment2 = [[1, 2, 0], [3, 1, 0]];
- * console.log(intersect(lineSegment1, lineSegment2));
- * // output: [1.6666666666666667, 1.6666666666666667]
- */
-export function intersect(l1: LineString, l2: LineString): Point|boolean {
-  if ( // Check if the two segments are equal.
-    l1[0][0] === l2[0][0] && l1[0][1] === l2[0][1] &&
-    l1[1][0] === l2[1][0] && l1[1][1] === l2[1][1]) {
-    return [l1[0][0], l1[0][1]]; // return first point
-  }
-
-  if ( // Check if they intersect at first end.
-    (l1[0][0] === l2[0][0] && l1[0][1] === l2[0][1]) ||
-    (l1[0][0] === l2[1][0] && l1[0][1] === l2[1][1])) {
-    return [l1[0][0], l1[0][1]]; // return first point
-  }
-
-  if ( // Check if they intersect at second end.
-    (l1[1][0] === l2[0][0] && l1[1][1] === l2[0][1]) ||
-    (l1[1][0] === l2[1][0] && l1[1][1] === l2[1][1])) {
-    return [l1[1][0], l1[1][1]]; // return first point
-  }
-
-  const dx1:f32 = l1[1][0] - l1[0][0];
-  const dy1:f32 = l1[1][1] - l1[0][1];
-  const dx2:f32 = l2[1][0] - l2[0][0];
-  const dy2:f32 = l2[1][1] - l2[0][1];
-
-  const denom:f32 = (dy2 * dx1) - (dx2 * dy1);
-  if (denom === 0) { return false; }
-
-  const dx12:f32 = l1[0][0] - l2[0][0];
-  const dy12:f32 = l1[0][1] - l2[0][1];
-  const ua:f32 = ((dx2 * dy12) - (dy2 * dx12)) / denom;
-  const ub:f32 = ((dx1 * dy12) - (dy1 * dx12)) / denom;
-
-  if (ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1) {
-    const ip:Point = [l1[0][0] + (ua * dx1), l1[0][1] + (ua * dy1)];
-    return ip;
-  }
-  return false;
-}
-
-/**
  * Finds the distance between two points.
  * @name distance
  * @param {Array<number>} p1 An array containing x and y coordinates. Such as: [0, 0]
@@ -81,71 +29,12 @@ export function distance(p1:Point, p2:Point):f32 {
  */
 export function angle(p1:Point, p2:Point): f32 {
   // If the two points are identical
-  if (p1[0] === p2[0] && p1[1] === p2[1]) {
-    return 0;
-  }
+  if (p1[0] === p2[0] && p1[1] === p2[1]) { return 0; }
 
   let theta:f32 = Math.atan2(p1[0] - p2[0], p2[1] - p1[1]);
-  if (theta < 0) {
-    theta += Math.PI * 2;
-  }
+  if (theta < 0) { theta += Math.PI * 2;}
 
   return theta;
-}
-
-/**
- * Tests if a given point is located on a given line. Only works in 2D.
- * @name isPointOnLine
- * @param {Array<number>} p An array containing x and y coordinates. Such as: [1,1]
- * @param {Array<number>} l A nested array containing x and y coordinates. Such as: [[1,1], [2,2]]
- * @param {Number} [t = Number.EPSILON] The tolerance of the distance between the point and the line. Defaults to Epsilon.
- * @returns {Boolean} True if point is on line within tolerance, false otherwise.
- * @example
- * const point = [1, 1];
- * const line = [[0, 0], [2, 2]];
- * console.log(isPointOnLine(point, line));
- * // output: true
- */
-export function isPointOnLine(p:Point, l:LineString, t:f32 = Number.EPSILON):boolean {
-  const dy:f32 = l[1][1] - l[0][1];
-  const dx:f32 = l[1][0] - l[0][0];
-
-  if (dx === 0 || dy === 0) { // vertical line
-    if (p[0] === l[0][0]) {
-      let ymin:f32;
-      let ymax:f32;
-      if (l[0][1] >= l[1][1]) {
-        ymin = l[1][1];
-        ymax = l[0][1];
-      } else {
-        ymin = l[0][1];
-        ymax = l[1][1];
-      }
-      if (p[1] >= ymin && p[1] <= ymax) {
-        return true;
-      }
-    } else if (p[1] === l[0][1]) { // horisontal line
-      let xmin:f32;
-      let xmax:f32;
-      if (l[0][0] >= l[1][0]) {
-        xmin = l[1][0];
-        xmax = l[0][0];
-      } else {
-        xmin = l[0][0];
-        xmax = l[1][0];
-      }
-      if (p[0] >= xmin && p[0] <= xmax) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  const slope:f32 = dy / dx;
-  const intercept:f32 = l[0][1] - (slope * l[0][0]);
-  const on:f32 = Math.abs(p[1] - ((slope * p[0]) + intercept));
-
-  return (on <= t) === true;
 }
 
 /**
@@ -252,6 +141,113 @@ export function pointFromOriginRotation(o:Point, p:Point, a:f32):Point {
     ) + o[1];
 
   return [nx, ny];
+}
+
+/**
+ * Tests if a given point is located on a given line.
+ * @name isPointOnLine
+ * @param {Array<number>} p An array containing x and y coordinates. Such as: [1,1]
+ * @param {Array<number>} l A nested array containing x and y coordinates. Such as: [[1,1], [2,2]]
+ * @param {Number} [t = Number.EPSILON] The tolerance of the distance between the point and the line. Defaults to Epsilon.
+ * @returns {Boolean} True if point is on line within tolerance, false otherwise.
+ * @example
+ * const point = [1, 1];
+ * const line = [[0, 0], [2, 2]];
+ * console.log(isPointOnLine(point, line));
+ * // output: true
+ */
+export function isPointOnLine(p:Point, l:LineString, t:f32 = Number.EPSILON):boolean {
+  const dy:f32 = l[1][1] - l[0][1];
+  const dx:f32 = l[1][0] - l[0][0];
+
+  if (dx === 0 || dy === 0) { // vertical line
+    if (p[0] === l[0][0]) {
+      let ymin:f32;
+      let ymax:f32;
+      if (l[0][1] >= l[1][1]) {
+        ymin = l[1][1];
+        ymax = l[0][1];
+      } else {
+        ymin = l[0][1];
+        ymax = l[1][1];
+      }
+      if (p[1] >= ymin && p[1] <= ymax) {
+        return true;
+      }
+    } else if (p[1] === l[0][1]) { // horisontal line
+      let xmin:f32;
+      let xmax:f32;
+      if (l[0][0] >= l[1][0]) {
+        xmin = l[1][0];
+        xmax = l[0][0];
+      } else {
+        xmin = l[0][0];
+        xmax = l[1][0];
+      }
+      if (p[0] >= xmin && p[0] <= xmax) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  const slope:f32 = dy / dx;
+  const intercept:f32 = l[0][1] - (slope * l[0][0]);
+  const on:f32 = Math.abs(p[1] - ((slope * p[0]) + intercept));
+
+  return (on <= t) === true;
+}
+
+/**
+ * Find the intersection point between two lines located on the lines.
+ * @name intersect
+ * @param {Array<number>} l1 A nested array containing x and y coordinates. [[0, 0], [2, 2]]
+ * @param {Array<number>} l2 A nested array containing x and y coordinates. [[1, 2], [3, 1]]
+ * @returns {(Array<number>|Boolean)} An array containing the intersection.
+ * False if no intersection.
+ * @example
+ * const lineSegment1 = [[0, 0, 0], [2, 2, 0]];
+ * const lineSegment2 = [[1, 2, 0], [3, 1, 0]];
+ * console.log(intersect(lineSegment1, lineSegment2));
+ * // output: [1.6666666666666667, 1.6666666666666667]
+ */
+export function intersect(l1: LineString, l2: LineString): Point|boolean {
+  if ( // Check if the two segments are equal.
+    l1[0][0] === l2[0][0] && l1[0][1] === l2[0][1] &&
+    l1[1][0] === l2[1][0] && l1[1][1] === l2[1][1]) {
+    return [l1[0][0], l1[0][1]]; // return first point
+  }
+
+  if ( // Check if they intersect at first end.
+    (l1[0][0] === l2[0][0] && l1[0][1] === l2[0][1]) ||
+    (l1[0][0] === l2[1][0] && l1[0][1] === l2[1][1])) {
+    return [l1[0][0], l1[0][1]]; // return first point
+  }
+
+  if ( // Check if they intersect at second end.
+    (l1[1][0] === l2[0][0] && l1[1][1] === l2[0][1]) ||
+    (l1[1][0] === l2[1][0] && l1[1][1] === l2[1][1])) {
+    return [l1[1][0], l1[1][1]]; // return first point
+  }
+
+  const dx1:f32 = l1[1][0] - l1[0][0];
+  const dy1:f32 = l1[1][1] - l1[0][1];
+  const dx2:f32 = l2[1][0] - l2[0][0];
+  const dy2:f32 = l2[1][1] - l2[0][1];
+
+  const denom:f32 = (dy2 * dx1) - (dx2 * dy1);
+  if (denom === 0) { return false; }
+
+  const dx12:f32 = l1[0][0] - l2[0][0];
+  const dy12:f32 = l1[0][1] - l2[0][1];
+  const ua:f32 = ((dx2 * dy12) - (dy2 * dx12)) / denom;
+  const ub:f32 = ((dx1 * dy12) - (dy1 * dx12)) / denom;
+
+  if (ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1) {
+    const ip:Point = [l1[0][0] + (ua * dx1), l1[0][1] + (ua * dy1)];
+    return ip;
+  }
+  return false;
 }
 
 /**
