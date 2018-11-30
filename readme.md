@@ -1,10 +1,18 @@
-working repository, nothing is stable yet.
+Working repository. Don't use yet.
 
-Dependencies:
-Worker-farm (multi-threading)
+Goal:
+    Collection of quick geometric algorithms using state of the art computational geometry.
+        Clip
+        Buffer
+        Intersection
+        Hull
+        Union
 
-TODO:
-Define base functions 		(0.1)
-Define tests				(0.2)
+    Initial creation in typescript.
+    Full unit test coverage.
 
-Uses ES6 Features
+    Long term goals:
+        Port to rust as command line CLI.
+        Concurrency in rust.
+        GPU support through Vulkan bindings in rust.
+        Expand to 3D algorithms.

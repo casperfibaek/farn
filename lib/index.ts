@@ -1,5 +1,8 @@
 /* eslint-env node, es6, browser */
 import * as base from './core/base';
+import * as linestring from './operations/linestring';
+import * as circle from './operations/circle';
+import * as polygon from './operations/polygon';
 
 // const checks = require('./core/checks');
 // const circles = require('./core/circles');
@@ -9,9 +12,9 @@ import * as base from './core/base';
 
 const farn = {
   ...base,
-  // ...checks,
-  // ...circles,
-  // ...lineStrings,
+  ...linestring,
+  ...circle,
+  ...polygon,
   // ...buffer,
   // ...selfIntersection,
 };
