@@ -6,8 +6,8 @@ const {
   pointFromRatio,
   pointFromAngle,
   pointRotation,
-} = require('../core/base');
-const geom = require('../../tests/geom');
+} = require('../lib/core/base');
+const geom = require('../tests/geom');
 const floatTolerance = Number.EPSILON * 2;
 
 test('distance (simple)', (t) => {
